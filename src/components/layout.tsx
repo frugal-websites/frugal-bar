@@ -12,7 +12,19 @@ import { useStaticQuery, graphql } from "gatsby"
 import Header from "./header"
 import "./layout.css"
 
-const Layout = ({ children }) => {
+import { Link } from "gatsby"
+
+interface LayoutProps {
+  children: JSX.Element[] | JSX.Element
+}
+
+const ListLink = (props: { to: string; children: string }) => (
+  <li style={{ display: `inline-block`, marginRight: `1rem` }}>
+    <Link to={props.to}>{props.children}</Link>
+  </li>
+)
+
+const Layout = (props: LayoutProps) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -25,7 +37,18 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+      <header style={{ marginBottom: `1.5rem` }}>
+        <Link to="/" style={{ textShadow: `none`, backgroundImage: `none` }}>
+          {/* <Header siteTitle={data.site.siteMetadata?.title || `Title`} /> */}
+          <h3 style={{ display: `inline` }}>MySweetSite</h3>
+        </Link>
+        <ul style={{ listStyle: `none`, float: `right` }}>
+          <ListLink to="/">Home</ListLink>
+          <ListLink to="/about/">About</ListLink>
+          <ListLink to="/contact/">Contact</ListLink>
+        </ul>
+      </header>
+
       <div
         style={{
           margin: `0 auto`,
@@ -33,7 +56,7 @@ const Layout = ({ children }) => {
           padding: `0 1.0875rem 1.45rem`,
         }}
       >
-        <main>{children}</main>
+        <main>{props.children}</main>
         <footer
           style={{
             marginTop: `2rem`,
