@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -30,6 +34,14 @@ module.exports = {
         // see https://developers.google.com/web/fundamentals/web-app-manifest/#display
         display: `minimal-ui`,
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+      },
+    },
+    {
+      resolve: `gatsby-source-mongodb`,
+      options: {
+        dbName: process.env.MONGODB_DB_NAME,
+        collection: process.env.MONGODB_COLLECTION_NAME,
+        connectionString: process.env.MONGODB_CONNECTION_STRING,
       },
     },
     {

@@ -24,6 +24,19 @@ const ListLink = (props: { to: string; children: string }) => (
   </li>
 )
 
+// const Layout = (props: LayoutProps) => {
+//   const data = useStaticQuery(graphql`
+//     query SiteTitleQuery {
+//       allMongodbBasicLayoutsLayoutA {
+//         edges {
+//           node {
+//             title
+//           }
+//         }
+//       }
+//     }
+//   `)
+
 const Layout = (props: LayoutProps) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -39,8 +52,10 @@ const Layout = (props: LayoutProps) => {
     <>
       <header style={{ marginBottom: `1.5rem` }}>
         <Link to="/" style={{ textShadow: `none`, backgroundImage: `none` }}>
-          {/* <Header siteTitle={data.site.siteMetadata?.title || `Title`} /> */}
-          <h3 style={{ display: `inline` }}>MySweetSite</h3>
+          <h3 style={{ display: `inline` }}>
+            {/* {data.allMongodbBasicLayoutsLayoutA.edges[0].node?.title || `Title`} */}
+            {data.site.siteMetadata?.title || `Title`}
+          </h3>
         </Link>
         <ul style={{ listStyle: `none`, float: `right` }}>
           <ListLink to="/">Home</ListLink>
