@@ -9,19 +9,14 @@ const app = new Realm.App(process.env.REALM_APP_ID)
 async function getValidAccessToken(app) {
   if (!app.currentUser) {
     // If no user is logged in, log in an anonymous user
-    console.log(`1`)
 
     await app.logIn(Realm.Credentials.anonymous())
-    console.log(`2`)
   } else {
     // The logged in user's access token might be stale,
     // Refreshing custom data also refreshes the access token
-    console.log(`3`)
     await app.currentUser.refreshCustomData()
-    console.log(`4`)
   }
   // Get a valid access token for the current user
-  console.log(`5`)
   return app.currentUser.accessToken
 }
 
